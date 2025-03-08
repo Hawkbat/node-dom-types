@@ -2,7 +2,38 @@
 
 TypeScript definitions for the subset of DOM APIs supported in both Node.js and the browser.
 
-In the future, this could possibly be extracted directly from lib.dom.d.ts instead of hand-copied and edited.
+This is useful for writing cross-platform libraries in TypeScript that .
+
+In the future, this could possibly be extracted directly from `lib.dom.d.ts` instead of hand-copied and edited.
+
+## Usage
+
+In your project's `package.json` file, add this package under the name `@typescript/lib-dom`:
+
+```json
+{
+  "devDependencies": {
+    "@typescript/lib-dom": "npm:node-dom-types@23.9.0"
+  }
+}
+```
+
+In your `tsconfig.json` file, set your `lib` array to include `DOM` and explicitly enable [libReplacement](https://www.typescriptlang.org/tsconfig/#libReplacement) for future-proofing:
+
+```json
+{
+    "compilerOptions": {
+        "lib": ["ESNext", "DOM"],
+        "libReplacement": true
+    }
+}
+```
+
+Replace `"ESNext"` with your preferred core lib target.
+
+If everything is set up properly, your TypeScript code should only have access to the options listed below instead of the full DOM API.
+
+Note that it is _painfully_ easy to still include `@types/node` or `lib.dom.d.ts` indirectly by importing another module which depends on one or the other. This will cause all of the corresponding types to be present in the environment, defeating the purpose of this package. See [Issue #37053](https://github.com/microsoft/TypeScript/issues/37053) and [Issue #50424](https://github.com/microsoft/TypeScript/issues/50424) in the TypeScript repository for related issues.
 
 ## Versions
 
